@@ -7,9 +7,8 @@
 		<div id="Body" class="pt-10 flex flex-col items-center justify-center w-auto">
             <form onsubmit="return false">
                 <label for="celsius_input" class="text-white -mb-11 text-xl">Enter temperature (°C)</label><br>
-                <!-- <input v-model="celsius" type='number' id="celsius_input" onkeydown="return event.keyCode !== 69" class="bg-slate-300 my-4 text-3xl rounded-lg px-3 py-2"  placeholder="Enter temperature (°C)" required/> -->
-                <input v-model="celsius" type='number' id="celsius_input" onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8 || event.keyCode === 46 ||event.keyCode !== 69" class="bg-slate-300 my-4 text-3xl rounded-lg px-3 py-2"  placeholder="Enter temperature (°C)" required/>
-
+                <input v-model="celsius" type='tel' id="celsius_input" onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8 || event.keyCode === 46 ||event.keyCode !== 69" class="bg-slate-300 my-4 text-3xl rounded-lg px-3 py-2"  placeholder="Enter temperature (°C)" required/>
+                
                 <br>
                 <div class="flex justify-center">
                     <button class="bg-gradient-to-tr from-cyan-500 to-blue-500 hover:bg-gradient-to-tr hover:from-cyan-700 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-lg w-fit" v-on:click="ToggleModal()">
