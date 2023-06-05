@@ -1,17 +1,18 @@
 <template>
 	<div class="bg-gradient-to-tr from-gray-700 to-gray-900 min-w-screen min-h-screen">
-		<div class="flex justify-center text-white text-6xl pt-10">
-		    Convert Celsius(°C) to Fahrenheit(°F)
-		</div>
+		<div class="flex justify-center text-white only:sm:display:true pt-10 border-2">
+            <span class="hidden text-4xl lg:text-6xl sm:inline ">Convert Celsius(°C) to Fahrenheit(°F)</span>
+            <span class="inline text-4xl sm:hidden"> Convert °C to °F</span>
+        </div>
 		
-		<div id="Body" class="pt-10 flex flex-col items-center justify-center w-auto">
-            <form onsubmit="return false">
+		<div id="Body" class="pt-10 flex justify-center w-auto border-2">
+            <form onsubmit="return false" class="border">
                 <label for="celsius_input" class="text-white -mb-11 text-xl">Enter temperature (°C)</label><br>
                 <input v-model="celsius" step=0.001 type='number' id="celsius_input" onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8 || event.keyCode === 46 ||event.keyCode !== 69" class="bg-slate-300 my-4 text-3xl rounded-lg px-3 py-2"  placeholder="Enter temperature (°C)" required/>
                 <p class="-mt-3 ml-2 text-red-400">* maximum 3 digits</p>
-                <br>
 
-                <div class="flex justify-center">
+
+                <div class="flex justify-center border">
                     <button class="bg-gradient-to-tr from-cyan-500 to-blue-500 hover:bg-gradient-to-tr hover:from-cyan-700 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-lg w-fit" v-on:click="ToggleModal()">
                         Calculate
                     </button>
