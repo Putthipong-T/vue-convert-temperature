@@ -1,6 +1,7 @@
 // token local : WpxhcdJyqLV3jZ723dA2t54hYBtBRlvPSAC-gUfHzsGzf5eGPlCKr-n08LX2WLBTxiI9B1f_0tI67ts5It1rAQ==
 // token ubuntu :c3o6PsZ5wAs25twWrsdApE73eBm4KjkyAGLN--5LVXwGGYHBAmVjJ-7raBP2thvOdKLXcoOscdMyzBwXsehjYQ==
 // token online : 'nDNpNbdx2oGeRiLK3CbXMA_DPlKdwLtHC9VWBY4DqseAnOWLm7d1yJtyc82VTgX24DaBaZQJ9yu0MhrC_tyjZQ==
+// line token sJ89NFiw8zw79yswv5gsYxyA5mb9RVJkJKIdaMffvKD
 const { InfluxDB, Point } = require('@influxdata/influxdb-client');
 
 
