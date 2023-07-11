@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss/plugin')
+
+
 module.exports = {
   content: [
     './public/**/*.html',
@@ -7,5 +11,11 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms"),
+    plugin(function({ addVariant  }){
+      addVariant ('children','&>*')
+    }
+    ),
+    require('tailwindcss'),
+    require('autoprefixer'),],
 }

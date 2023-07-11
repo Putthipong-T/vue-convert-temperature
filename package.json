@@ -2,6 +2,7 @@
   "name": "c-to-f-project",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -10,16 +11,31 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
-    "vue": "^3.3.2"
+    "@headlessui/vue": "^1.7.14",
+    "@heroicons/vue": "^2.0.18",
+    "@influxdata/influxdb-client": "^1.33.2",
+    "@influxdata/influxdb-client-apis": "^1.33.2",
+    "@influxdata/influxdb-client-browser": "^1.33.2",
+    "axios": "^1.4.0",
+    "dotenv": "^16.1.4",
+    "echarts": "^5.4.2",
+    "express": "^4.18.2",
+    "influx": "^5.9.3",
+    "request": "^2.88.2",
+    "tough-cookie": "^3.0.1",
+    "vue": "^3.3.2",
+    "vue-echarts": "^6.5.5"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@tsconfig/node18": "^2.0.1",
     "@types/node": "^18.16.8",
+    "@types/request": "^2.48.8",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/tsconfig": "^0.4.0",
     "autoprefixer": "^10.4.14",
-    "npm-run-all": "^4.1.5",
+    "npm-run-all": "^4.1.2",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
     "typescript": "~5.0.4",
