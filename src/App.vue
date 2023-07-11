@@ -21,14 +21,14 @@
 
 		</div>
         <div class =" text-xl text-white">
-            {{this.tempValue[this.tempValue.length - 2]}}
+            {{tempValue[tempValue.length - 2]}}
         </div>
         <div v-if = "showtrigger" class ="text-6xl text-red-500">
             test
         </div>
         <div class='flex flex-row mt-5'>
             
-            <dotGraph class='basis-10/12 w-full' :horizontal-line="lineValue" titleColor="white" :showHorizontalLine="showLine" :time="time" :tempValue="tempValue" :startTime="startTime" graph_name="Temperature"></dotGraph>
+            <dotGraph class='basis-10/12 w-full' :horizontal-line="lineValue" titleColor="white" :showHorizontalLine="showLine  " :time="time" :tempValue="tempValue" :startTime="startTime" graph_name="Temperature"></dotGraph>
             <div class='basis-2/12 pt-20 flex flex-col'>
                 <div>
                     <input v-model="showLine" id='H-line' type="checkbox" class="checked:bg-black checked:accent-black w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 inline-flex" checked>
@@ -106,8 +106,9 @@
     import { ref, watch  } from 'vue';
 	import Modal from './components/icons/Popup.vue';
     import dotGraph from './components/Chart.vue'
-    import { myQuery } from '../database/read.js';
-    import sendNotification from './components/Linenotify.js'
+    // import {myQuery} from '../database/read.js';
+    import { InfluxDB, Point } from '@influxdata/influxdb-client-browser'
+    // import sendNotification from './components/Linenotify.js'
 
 	export default {
         name: 'App',
@@ -116,8 +117,8 @@
                 celsius : null,
                 showLine: false,
                 lineValue: 0,
-                tempValue: [],
-                time: [], 
+                tempValue: [] as any[],
+                time: [] as any[], 
                 startTime: '-1d',
                 st: '-1d',
                 showtrigger: false
@@ -125,6 +126,7 @@
         },
         setup(){
             const celsius = ref<number | null>(null);
+            const tempValue = ref< Array<any>| null>([]);
             const fahrenheit = ref<number | null>(null);
             const showLine = ref<Boolean>(false);
             const startTime = ref('-1d'); // Add startTime here
@@ -153,6 +155,7 @@
      
 
             return {fahrenheit, celsius, convert, openModal, ToggleModal, showLine}
+            
         },
         components: {
             Modal,
@@ -172,10 +175,71 @@
             );
         },
         methods: {
+            async myQuery(timeRange: String) {
+                // async function myQuery(timeRange) {
+                // const { InfluxDB, Point } = require('@influxdata/influxdb-client-browser');
+                
+                //ubuntu
+                const token ='c3o6PsZ5wAs25twWrsdApE73eBm4KjkyAGLN--5LVXwGGYHBAmVjJ-7raBP2thvOdKLXcoOscdMyzBwXsehjYQ=='
+                const url = 'http://18.142.197.178:8086';
+                let org = `kmitl`
+                let bucket = `test_data`
+                // let bucket = `Test_data2`
+
+                // const token = 'd2t-hh49xIxIfbxfyJ5AKX6IGfI7sQDVZjufDxS2HtaH86NZ53N0rQsUZgl2dCd2P0uQU9KjiP5cibJqdj-Y4w==';
+                // const url = 'http://127.0.0.1:8086';
+                // const orgID = '4faf28548de05ae3';
+                // const org = 'Vue-qonnect';
+                // const bucket = 'test2';
+                const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
+                const fluxQuery = `from(bucket:"${bucket}") 
+                |> range(start:${timeRange}) 
+                |> filter(fn: (r) => r._measurement == "temp")
+                |> filter(fn: (r) => r["_field"] == "test")
+                |> aggregateWindow(every: ${getInterval(timeRange)}, fn: mean)
+                |> yield(name: "mean")`;
+
+                function getInterval(timeRange: String) {
+                    if (timeRange === '-30m') {
+                    return '10s';
+                    }else if (timeRange === '-45m') {
+                    return '10s';
+                    }else if (timeRange === '-1h') {
+                    return '10s';
+                    }else if (timeRange === '-3h') {
+                    return '20s';
+                    } else if (timeRange === '-6h') {
+                    return '40s';
+                    } else if (timeRange === '-12h') {
+                    return '1m';
+                    } else if (timeRange === '-1d') {
+                    return '4m';
+                    }
+                
+                    // Default interval if none of the specific time range values match
+                    return '5s';
+                }
+                
+                
+                
+                
+
+                const tempValue = [];
+                const time = [];
+
+                for await (const { values, tableMeta } of queryApi.iterateRows(fluxQuery)) {
+                    const o = tableMeta.toObject(values);
+                    tempValue.push(o._value);
+                    time.push(o._time);
+                }
+
+                return { tempValue, time };
+            },
+
             async fetchData() {
             try {
                 // console.log("load data")
-                const result = await myQuery(this.startTime);
+                const result = await this.myQuery(this.startTime);
                 this.tempValue = result.tempValue;
                 this.time = result.time;
                 // console.log(this.tempValue, this.time)
@@ -184,8 +248,8 @@
                 // console.log(this.tempValue[this.tempValue.length - 2])
                 if( this.tempValue[this.tempValue.length - 2] > 0){
                     this.showtrigger = true
-                    sendNotification("your temp more than " + this.tempValue[this.tempValue.length -2]);
-                    console.log("value more than 55: ", this.tempValue[this.tempValue.length])
+                    // sendNotification("your temp more than " + this.tempValue[this.tempValue.length -2]);
+                    // console.log("value more than 55: ", this.tempValue[this.tempValue.length])
                 }else{
                     this.showtrigger = false
                 }
@@ -193,11 +257,10 @@
                 console.error(error);
             }
             },
+            
         },
 	};
 </script>
 
 <style>
 </style>
-
-./components/Linenotify.mjs/index.js

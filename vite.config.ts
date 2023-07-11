@@ -20,5 +20,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 //for git
 export default defineConfig({
   base: 'vue-convert-temperature',
-  plugins: [vue()]
+  plugins: [vue()],
+  server:{
+    host: true
+  }
 })

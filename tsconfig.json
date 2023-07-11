@@ -17,8 +17,8 @@
     "resolveJsonModule": true,
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
-    "outDir": "dist"
+    "outDir": "dist",
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["env.d.ts", "src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.d.ts", "tests/**/*.ts", "tests/**/*.tsx"],
+  "exclude": ["node_modules", "transform.js"]
 }

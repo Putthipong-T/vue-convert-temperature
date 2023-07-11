@@ -1,4 +1,4 @@
-const { myQuery } = require('./read.js');
+const { myQuery } = require('./read.js/index.js');
 
 myQuery().then(result => {
   console.log(result.time);

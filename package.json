@@ -8,7 +8,8 @@
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
+    "host": "vite --host"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.14",
@@ -16,6 +17,7 @@
     "@influxdata/influxdb-client": "^1.33.2",
     "@influxdata/influxdb-client-apis": "^1.33.2",
     "@influxdata/influxdb-client-browser": "^1.33.2",
+    "@types/chart.js": "^2.9.37",
     "axios": "^1.4.0",
     "dotenv": "^16.1.4",
     "echarts": "^5.4.2",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "@tsconfig/node18": "^2.0.1",
+    "@types/echarts": "^4.9.18",
     "@types/node": "^18.16.8",
     "@types/request": "^2.48.8",
     "@vitejs/plugin-vue": "^4.2.3",

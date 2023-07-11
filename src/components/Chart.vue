@@ -6,6 +6,8 @@
 
 <script lang="ts">
 import * as echarts from 'echarts';
+import type { ECharts } from 'echarts';
+
 
 export default {
   name: 'DotGraph',
@@ -43,6 +45,13 @@ export default {
       required: true
     },
 
+  },
+  data() {
+    return {
+      // Other data properties...
+      chart: null as ECharts | null,
+      // Other data properties...
+    };
   },
   mounted() {
     window.addEventListener('resize', this.handleResize);
@@ -90,7 +99,7 @@ export default {
     renderGraph() {
       const startTime = this.startTime;
       if (!this.chart) {
-        this.chart = echarts.init(this.$refs.dotGraph);
+        this.chart = echarts.init(this.$refs.dotGraph as HTMLElement);
       }
 
       const option = {
@@ -116,7 +125,7 @@ export default {
               nameLocation:'center',
               nameGap: 35,
               axisLabel: {
-                formatter: function (value) {
+                formatter: function (value: any) {
                   const date = new Date(value);
                   const hours = date.getHours();
                   const minutes = date.getMinutes();
@@ -169,7 +178,7 @@ export default {
       if (this.chart.getOption()) {
         this.chart.setOption(option);
       } else {
-        this.chart = echarts.init(this.$refs.dotGraph);
+        this.chart = echarts.init(this.$refs.dotGraph as HTMLElement);
         this.chart.setOption(option);
       }
     },
