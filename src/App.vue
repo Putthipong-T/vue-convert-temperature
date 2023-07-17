@@ -20,12 +20,12 @@
             
 
 		</div>
-        <div class =" text-xl text-white">
+        <!-- <div class =" text-xl text-white">
             {{tempValue[tempValue.length - 2]}}
         </div>
         <div v-if = "showtrigger" class ="text-6xl text-red-500">
             test
-        </div>
+        </div> -->
         <div class='flex flex-row mt-5'>
             
             <dotGraph class='basis-10/12 w-full' :horizontal-line="lineValue" titleColor="white" :showHorizontalLine="showLine  " :time="time" :tempValue="tempValue" :startTime="startTime" graph_name="Temperature"></dotGraph>
@@ -105,10 +105,10 @@
 <script lang="ts">
     import { ref, watch  } from 'vue';
 	import Modal from './components/icons/Popup.vue';
-    import dotGraph from './components/Chart.vue'
+    import dotGraph from './components/Chart.vue';
     // import {myQuery} from '../database/read.js';
-    import { InfluxDB, Point } from '@influxdata/influxdb-client-browser'
-    // import sendNotification from './components/Linenotify.js'
+    import { InfluxDB, Point } from '@influxdata/influxdb-client-browser';
+    import sendNotification from  './components/Linenotify.js';
 
 	export default {
         name: 'App',
@@ -246,9 +246,9 @@
                 // console.log(this.tempValue.length)
                 // console.log(this.tempValue)
                 // console.log(this.tempValue[this.tempValue.length - 2])
-                if( this.tempValue[this.tempValue.length - 2] > 0){
+                if( this.tempValue[this.tempValue.length - 2] > 50){
                     this.showtrigger = true
-                    // sendNotification("your temp more than " + this.tempValue[this.tempValue.length -2]);
+                    sendNotification("your temp more than 50 ("+ this.tempValue[this.tempValue.length -2]+")");
                     // console.log("value more than 55: ", this.tempValue[this.tempValue.length])
                 }else{
                     this.showtrigger = false
