@@ -108,7 +108,7 @@
     import dotGraph from './components/Chart.vue';
     // import {myQuery} from '../database/read.js';
     import { InfluxDB, Point } from '@influxdata/influxdb-client-browser';
-    // import sendNotification from  './components/Linenotify.js';
+    import sendNotification from  './components/Linenotify.js';
 
 	export default {
         name: 'App',
@@ -248,7 +248,7 @@
                 // console.log(this.tempValue[this.tempValue.length - 2])
                 if( this.tempValue[this.tempValue.length - 2] > 50){
                     this.showtrigger = true
-                    // sendNotification("your temp more than 50 ("+ this.tempValue[this.tempValue.length -2]+")");
+                    sendNotification("your temp more than 50 ("+ this.tempValue[this.tempValue.length -2]+")");
                     // console.log("value more than 55: ", this.tempValue[this.tempValue.length])
                 }else{
                     this.showtrigger = false
