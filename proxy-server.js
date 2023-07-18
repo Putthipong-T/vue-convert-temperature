@@ -1,7 +1,14 @@
 import express from 'express';
 import axios from 'axios';
+const cors = require('cors');
 
 const app = express();
+const corsOptions = {
+  origin: ['http://localhost:5173'],
+};
+
+app.use(cors(corsOptions));
+
 const port = 3000; // Choose a port for your proxy server
 
 app.use(express.json());
@@ -15,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 // Proxy route
-app.post('/send-notification', async (req, res) => {
+app.post('/api/send-notification', async (req, res) => {
   const { token, message } = req.body;
   const url = 'https://notify-api.line.me/api/notify';
   const headers = { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': `Bearer ${token}` };

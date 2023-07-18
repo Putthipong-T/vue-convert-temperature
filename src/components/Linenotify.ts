@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default async function sendNotification(message: string) {
   const token = 'TjkSd9mAMeeEae53TWihB6VsQwrolTJMIWizhV6NtCb';
-  const proxyUrl = 'http://localhost:3000/send-notification'; // Replace with the URL of your Express server or the deployed server URL
+  const proxyUrl = 'http://localhost:3000/api/send-notification'; // Replace with the URL of your Express server or the deployed server URL
   const data = { token, message };
 
   try {

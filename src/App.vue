@@ -37,6 +37,7 @@
 
 
                 <input v-model="lineValue" step=0.001 type='number' id="line" class="bg-slate-300 rounded-xl m-2 px-3 w-32" onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8 || event.keyCode === 46 ||event.keyCode !== 69"   placeholder="Enter Y value" required />
+                <input v-model="upper_limit" step=0.001 type='number' id="limit" class="bg-slate-300 rounded-xl m-2 px-3 w-32" onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8 || event.keyCode === 46 ||event.keyCode !== 69"   placeholder="Enter Y value" required />
                 <!-- <input v-model="st" type='string' id="startT"  class="bg-slate-300 rounded-lg mt-2 mx-2 px-3 py-1"  placeholder="Enter start" required/>
                 <div class="text-white">{{lineValue}} {{ showLine }}{{ startTime }} st:{{ st }}</div> -->
 <!--                 
@@ -121,7 +122,8 @@
                 time: [] as any[], 
                 startTime: '-1d',
                 st: '-1d',
-                showtrigger: false
+                showtrigger: false,
+                upper_limit:200
             }
         },
         setup(){
@@ -246,9 +248,11 @@
                 // console.log(this.tempValue.length)
                 // console.log(this.tempValue)
                 // console.log(this.tempValue[this.tempValue.length - 2])
-                if( this.tempValue[this.tempValue.length - 2] > 50){
+                console.log("limitu is: " + this.upper_limit)
+                if( this.tempValue[this.tempValue.length - 2] > this.upper_limit){
+                    console.log("try to send noti")
                     this.showtrigger = true
-                    sendNotification("your temp more than 50 ("+ this.tempValue[this.tempValue.length -2]+")");
+                    sendNotification("your temp more than 50 ("+ this.tempValue[this.tempValue.length -2] +  " : "+ this.upper_limit+ ")");
                     // console.log("value more than 55: ", this.tempValue[this.tempValue.length])
                 }else{
                     this.showtrigger = false
